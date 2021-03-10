@@ -10,10 +10,10 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="账号" prop="username">
+          <el-form-item label="账号" prop="account">
             <el-input
               type="text"
-              v-model="ruleForm.username"
+              v-model="ruleForm.account"
               autocomplete="off"
             ></el-input>
           </el-form-item>
@@ -46,10 +46,10 @@ export default {
       offset: 6,
       ruleForm: {
         pass: "",
-        checkPass: "",
+        account: "",
       },
       rules: {
-        username: [{ required: true, message: "请输入账号", trigger: "blur" }],
+        account: [{ required: true, message: "请输入账号", trigger: "blur" }],
         pass: [{ required: true, message: "请输入密码", trigger: "blur" }],
       },
     };
@@ -58,15 +58,28 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.axios
-            .get("http://localhost/api/test")
-            .then(() => {
-              this.$router.push({ name: "Home" });
+          this.$http({
+            method: 'post',
+            url: 'http://localhost:88/api/backstage/user/login',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+              "account": this.ruleForm.account,
+              "password": this.ruleForm.pass
+            }
+          })
+            .then((res) => {
+              if (res.data.token) {
+                this.$cookies.set("token", res.data.token, '10min')
+                this.$router.push({ name: "Home" });
+              } else {
+                alert('账号或密码出错')
+                return false
+              }
             })
             .catch((e) => {
               console.log(e)
               alert('账号或密码出错')
-              return false;
+              return false
             });
         } else {
           console.log("error submit!!");
@@ -79,7 +92,6 @@ export default {
     },
   },
   created() {
-    this.$cookies.set('hello', 'world')
     this.offset = Number.parseInt(window.innerWidth / 200);
     this.styleObject["margin-top"] =
       Number.parseInt(window.innerHeight / 2 - 124) + "px";

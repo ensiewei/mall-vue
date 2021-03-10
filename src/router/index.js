@@ -8,13 +8,13 @@ const routes = [
     component: Home
   },
   {
-    path:'/login',
+    path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue')
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: {name: 'Home'}
+    redirect: { name: 'Home' }
   }
 ]
 
