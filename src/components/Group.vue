@@ -1,0 +1,43 @@
+
+<template>
+  <el-container>
+    <el-aside width="30%">
+      <category @node-click="handleNodeClick"></category>
+    </el-aside>
+    <el-main>
+      <el-table :data="tableData" border>
+        <el-table-column prop="id" label="id"> </el-table-column>
+        <el-table-column prop="name" label="名字"> </el-table-column>
+      </el-table>
+    </el-main>
+  </el-container>
+</template>
+
+<script>
+import Category from "../components/Category.vue";
+export default {
+  data() {
+    return {
+      tableData: [],
+    };
+  },
+  components: {
+    Category,
+  },
+  methods: {
+    handleNodeClick(obj) {
+      if (obj.categoryEntity.level === 3) {
+        this.axios
+          .get("http://localhost:88/api/commodity/group/category/" + obj.categoryEntity.id)
+          .then((response) => {
+            this.tableData = response.data.group;
+          })
+          .catch((e) => console.log(e));
+      }
+    },
+  },
+};
+</script>
+
+<style>
+</style>
