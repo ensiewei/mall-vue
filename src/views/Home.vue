@@ -10,17 +10,17 @@
             <el-menu-item index="1-3" @click="currentComponent = 'Brand'">品牌</el-menu-item>
             <el-submenu index="1-4">
               <template #title>spu</template>
-              <el-menu-item index="1-4-1">增加</el-menu-item>
+              <el-menu-item index="1-4-1" @click="currentComponent = 'AddSpu'">增加</el-menu-item>
               <el-menu-item index="1-4-2">删除</el-menu-item>
               <el-menu-item index="1-4-3">修改</el-menu-item>
               <el-menu-item index="1-4-4" @click="currentComponent = 'Spu'">查询</el-menu-item>
             </el-submenu>
             <el-submenu index="1-5">
               <template #title>sku</template>
-              <el-menu-item index="1-5-1">增加</el-menu-item>
+              <el-menu-item index="1-5-1" @click="currentComponent = 'AddSku'">增加</el-menu-item>
               <el-menu-item index="1-5-2">删除</el-menu-item>
               <el-menu-item index="1-5-3">修改</el-menu-item>
-              <el-menu-item index="1-5-4">查询</el-menu-item>
+              <el-menu-item index="1-5-4" @click="currentComponent = 'Sku'">查询</el-menu-item>
             </el-submenu>
           </el-menu-item-group>
         </el-submenu>
@@ -95,6 +95,10 @@
       AddUser: defineAsyncComponent(() => import('../components/AddUser.vue')),
       Spu: defineAsyncComponent(() => import('../components/Spu.vue')),
       Group: defineAsyncComponent(() => import('../components/Group.vue')),
+      Sku: defineAsyncComponent(() => import('../components/Sku.vue')),
+      AddSku: defineAsyncComponent(() => import('../components/AddSku.vue')),
+      AddSpu: defineAsyncComponent(() => import('../components/AddSpu.vue')),
+      
     }
   };
 </script>
