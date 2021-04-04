@@ -60,7 +60,7 @@ export default {
         if (valid) {
           this.$http({
             method: 'post',
-            url: 'http://localhost:88/api/backstage/user/login',
+            url: 'http://106.55.156.192:5797/api/backstage/user/login',
             headers: {'Content-Type': 'application/json'},
             data: {
               "account": this.ruleForm.account,

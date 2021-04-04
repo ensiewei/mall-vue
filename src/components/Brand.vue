@@ -18,7 +18,7 @@ export default {
   },
   beforeCreate() {
     this.axios
-      .get("http://localhost:88/api/commodity/brand/list")
+      .get("http://106.55.156.192:5797/api/commodity/brand/list")
       .then((response) => {
         this.tableData = response.data.page.list;
       })

@@ -64,7 +64,7 @@ export default {
 
         this.axios
           .get(
-            "http://localhost:88/api/commodity/brand/category/" +
+            "http://106.55.156.192:5797/api/commodity/brand/category/" +
               obj.categoryEntity.id
           )
           .then((response) => {
@@ -80,7 +80,7 @@ export default {
           console.log(this.ruleForm);
           this.$http({
             method: "post",
-            url: "http://localhost:88/api/commodity/spu/save",
+            url: "http://106.55.156.192:5797/api/commodity/spu/save",
             headers: { "Content-Type": "application/json" },
             data: {
               categoryId: this.ruleForm.categoryId,

@@ -39,7 +39,7 @@ export default {
     },
     getGroup(id) {
       this.axios
-          .get("http://localhost:88/api/commodity/group/category/" + id)
+          .get("http://106.55.156.192:5797/api/commodity/group/category/" + id)
           .then((response) => {
             this.tableData = response.data.group;
           })
@@ -48,7 +48,7 @@ export default {
     addGroup() {
       this.$http({
             method: "post",
-            url: "http://localhost:88/api/commodity/group/save",
+            url: "http://106.55.156.192:5797/api/commodity/group/save",
             headers: { "Content-Type": "application/json" },
             data: {
               categoryId: this.categoryId,

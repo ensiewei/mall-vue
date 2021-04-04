@@ -76,7 +76,7 @@ export default {
 
         this.axios
           .get(
-            "http://localhost:88/api/commodity/group/category/" +
+            "http://106.55.156.192:5797/api/commodity/group/category/" +
               obj.categoryEntity.id
           )
           .then((response) => {
@@ -87,7 +87,7 @@ export default {
 
         this.axios
           .get(
-            "http://localhost:88/api/commodity/spu/category/" +
+            "http://106.55.156.192:5797/api/commodity/spu/category/" +
               obj.categoryEntity.id
           )
           .then((response) => {
@@ -101,7 +101,7 @@ export default {
         if (valid) {
           this.$http({
             method: "post",
-            url: "http://localhost:88/api/commodity/sku/add",
+            url: "http://106.55.156.192:5797/api/commodity/sku/add",
             headers: { "Content-Type": "application/json" },
             data: {
               spuId: this.ruleForm.spu,

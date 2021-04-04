@@ -79,7 +79,7 @@ export default {
 
         this.axios
           .get(
-            "http://localhost:88/api/commodity/sku/category/" +
+            "http://106.55.156.192:5797/api/commodity/sku/category/" +
               obj.categoryEntity.id
           )
           .then((response) => {
@@ -93,7 +93,7 @@ export default {
         if (valid) {
           this.$http({
             method: "post",
-            url: "http://localhost:88/api/commodity/sku/modify",
+            url: "http://106.55.156.192:5797/api/commodity/sku/modify",
             headers: { "Content-Type": "application/json" },
             data: {
               skuTo: this.ruleForm.sku.skuTo,

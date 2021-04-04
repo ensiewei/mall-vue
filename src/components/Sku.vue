@@ -36,7 +36,7 @@ export default {
       if (obj.categoryEntity.level === 3) {
         this.axios
           .get(
-            "http://localhost:88/api/commodity/sku/category/" +
+            "http://106.55.156.192:5797/api/commodity/sku/category/" +
               obj.categoryEntity.id
           )
           .then((response) => {

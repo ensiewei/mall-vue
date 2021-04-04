@@ -19,7 +19,7 @@ export default {
   },
   beforeCreate() {
     this.$http
-      .get("http://localhost:88/api/commodity/category/tree")
+      .get("http://106.55.156.192:5797/api/commodity/category/tree")
       .then((res) => {
         this.data = res.data.category;
       })

@@ -65,7 +65,7 @@ export default {
 
         this.axios
           .get(
-            "http://localhost:88/api/commodity/spu/category/" +
+            "http://106.55.156.192:5797/api/commodity/spu/category/" +
               obj.categoryEntity.id
           )
           .then((response) => {
@@ -80,7 +80,7 @@ export default {
     fetchImgBySpuId(value) {
       if (Number.isInteger(value)) {
         this.axios
-          .get("http://localhost:88/api/commodity/spu-img/spu/" + value)
+          .get("http://106.55.156.192:5797/api/commodity/spu-img/spu/" + value)
           .then((response) => {
             this.spuImgs = response.data.spuImgs;
           })
@@ -93,7 +93,7 @@ export default {
     suc() {
       this.$http({
         method: "post",
-        url: "http://localhost:88/api/commodity/spu-img/save",
+        url: "http://106.55.156.192:5797/api/commodity/spu-img/save",
         headers: { "Content-Type": "application/json" },
         data: {
           spuId: this.value,
@@ -115,7 +115,7 @@ export default {
     },
     async beforeUpload(file) {
       await this.axios
-        .get("http://localhost:88/api/third-party/signature")
+        .get("http://106.55.156.192:5797/api/third-party/signature")
         .then((response) => {
           this.data = response.data.data;
           this.data.key =
