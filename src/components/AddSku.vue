@@ -13,7 +13,7 @@
         class="demo-ruleForm"
       >
         <el-form-item label="spu" prop="spu">
-          <el-select v-model="ruleForm.spu" placeholder="请选择spu">
+          <el-select v-model="ruleForm.spu" placeholder="请选择spu" clearable>
             <el-option
               :label="spu.name + ' (' + spu.brand + ')'"
               :value="spu.id"
@@ -21,6 +21,12 @@
               :key="spu.id"
             ></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item label="标题" prop="title" v-if="ruleForm.spu !== undefined && ruleForm.spu !== ''">
+          <el-input v-model="ruleForm.title"></el-input>
+        </el-form-item>
+        <el-form-item label="价格" prop="price" v-if="ruleForm.spu !== undefined && ruleForm.spu !== ''">
+          <el-input v-model="ruleForm.price"></el-input>
         </el-form-item>
         <el-form-item
           :label="group.name"
@@ -50,6 +56,8 @@ export default {
       ruleForm: {
         spu: undefined,
         categoryId: undefined,
+        price: undefined,
+        title: undefined,
         groups: [],
       },
       rules: {
@@ -64,6 +72,7 @@ export default {
     handleNodeClick(obj) {
       if (obj.categoryEntity.level === 3) {
         this.ruleForm.categoryId = obj.categoryEntity.id;
+        this.ruleForm.spu = undefined
 
         this.axios
           .get(
@@ -97,6 +106,8 @@ export default {
             data: {
               spuId: this.ruleForm.spu,
               categoryId: this.ruleForm.categoryId,
+              price: this.ruleForm.price,
+              title: this.ruleForm.title,
               groupDTOs: this.ruleForm.groups,
             },
           })
