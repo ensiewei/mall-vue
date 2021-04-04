@@ -19,8 +19,13 @@
               <template #title>sku</template>
               <el-menu-item index="1-5-1" @click="currentComponent = 'AddSku'">增加</el-menu-item>
               <el-menu-item index="1-5-2">删除</el-menu-item>
-              <el-menu-item index="1-5-3">修改</el-menu-item>
+              <el-menu-item index="1-5-3" @click="currentComponent = 'ModifySku'">修改</el-menu-item>
               <el-menu-item index="1-5-4" @click="currentComponent = 'Sku'">查询</el-menu-item>
+            </el-submenu>
+            <el-submenu index="1-6">
+              <template #title>图片</template>
+              <el-menu-item index="1-6-1" @click="currentComponent = 'SpuImg'">spu</el-menu-item>
+              <el-menu-item index="1-6-2" @click="currentComponent = 'SkuImg'">sku</el-menu-item>
             </el-submenu>
           </el-menu-item-group>
         </el-submenu>
@@ -98,6 +103,9 @@
       Sku: defineAsyncComponent(() => import('../components/Sku.vue')),
       AddSku: defineAsyncComponent(() => import('../components/AddSku.vue')),
       AddSpu: defineAsyncComponent(() => import('../components/AddSpu.vue')),
+      SpuImg: defineAsyncComponent(() => import('../components/SpuImg.vue')),
+      SkuImg: defineAsyncComponent(() => import('../components/SkuImg.vue')),
+      ModifySku: defineAsyncComponent(() => import('../components/ModifySku.vue')),
       
     }
   };
