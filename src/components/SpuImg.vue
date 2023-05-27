@@ -14,7 +14,7 @@
         </el-option>
       </el-select>
       <div class="demo-image" style="margin-top: 10px">
-        <div class="block" v-for="spuImg in spuImgs" :key="spuImg.id">
+        <div v-for="spuImg in spuImgs" :key="spuImg.id">
           <el-image
             :src="spuImg.img"
           ></el-image>
@@ -34,7 +34,7 @@
         <el-button size="small" type="primary">点击上传</el-button>
         <template #tip>
           <div class="el-upload__tip">
-            只能上传 jpg/png 文件
+            上传 图片 文件
           </div>
         </template>
       </el-upload>
@@ -65,8 +65,7 @@ export default {
 
         this.axios
           .get(
-            "http://106.55.156.192:5797/api/commodity/spu/category/" +
-              obj.categoryEntity.id
+            `http://${window.location.hostname}:88/api/commodity/spu/category/${obj.categoryEntity.id}`
           )
           .then((response) => {
             this.spus = response.data.spu;
@@ -80,7 +79,7 @@ export default {
     fetchImgBySpuId(value) {
       if (Number.isInteger(value)) {
         this.axios
-          .get("http://106.55.156.192:5797/api/commodity/spu-img/spu/" + value)
+          .get(`http://${window.location.hostname}:88/api/commodity/spu-img/spu/${value}`)
           .then((response) => {
             this.spuImgs = response.data.spuImgs;
           })
@@ -93,7 +92,7 @@ export default {
     suc() {
       this.$http({
         method: "post",
-        url: "http://106.55.156.192:5797/api/commodity/spu-img/save",
+        url: `http://${window.location.hostname}:88/api/commodity/spu-img/save`,
         headers: { "Content-Type": "application/json" },
         data: {
           spuId: this.value,
@@ -115,7 +114,7 @@ export default {
     },
     async beforeUpload(file) {
       await this.axios
-        .get("http://106.55.156.192:5797/api/third-party/signature")
+        .get(`http://${window.location.hostname}:88/api/third-party/signature`)
         .then((response) => {
           this.data = response.data.data;
           this.data.key =

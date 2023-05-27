@@ -29,7 +29,7 @@ export default {
     handleNodeClick(obj) {
       if (obj.categoryEntity.level === 3) {
         this.axios
-          .get("http://106.55.156.192:5797/api/commodity/spu/category/" + obj.categoryEntity.id)
+          .get(`http://${window.location.hostname}:88/api/commodity/spu/category/${obj.categoryEntity.id}`)
           .then((response) => {
             this.tableData = response.data.spu;
           })

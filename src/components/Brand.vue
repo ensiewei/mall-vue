@@ -18,9 +18,9 @@ export default {
   },
   beforeCreate() {
     this.axios
-      .get("http://106.55.156.192:5797/api/commodity/brand/list")
+      .get(`http://${window.location.hostname}:88/api/commodity/brand/list`)
       .then((response) => {
-        this.tableData = response.data.page.list;
+        this.tableData = response.data.list;
       })
       .catch((e) => console.log(e));
   },

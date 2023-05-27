@@ -7,7 +7,13 @@
           <el-menu-item-group>
             <el-menu-item index="1-1" @click="currentComponent = 'Category'">品类</el-menu-item>
             <el-menu-item index="1-2" @click="currentComponent = 'Group'">属性</el-menu-item>
-            <el-menu-item index="1-3" @click="currentComponent = 'Brand'">品牌</el-menu-item>
+            <el-submenu index="1-3">
+              <template #title>品牌</template>
+              <el-menu-item index="1-3-1" @click="currentComponent = 'AddBrand'">增加</el-menu-item>
+              <el-menu-item index="1-3-2">删除</el-menu-item>
+              <el-menu-item index="1-3-3">修改</el-menu-item>
+              <el-menu-item index="1-3-4" @click="currentComponent = 'Brand'">查询</el-menu-item>
+            </el-submenu>
             <el-submenu index="1-4">
               <template #title>spu</template>
               <el-menu-item index="1-4-1" @click="currentComponent = 'AddSpu'">增加</el-menu-item>
@@ -103,6 +109,7 @@
       Sku: defineAsyncComponent(() => import('../components/Sku.vue')),
       AddSku: defineAsyncComponent(() => import('../components/AddSku.vue')),
       AddSpu: defineAsyncComponent(() => import('../components/AddSpu.vue')),
+      AddBrand: defineAsyncComponent(() => import('../components/AddBrand.vue')),
       SpuImg: defineAsyncComponent(() => import('../components/SpuImg.vue')),
       SkuImg: defineAsyncComponent(() => import('../components/SkuImg.vue')),
       ModifySku: defineAsyncComponent(() => import('../components/ModifySku.vue')),

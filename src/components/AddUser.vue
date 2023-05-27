@@ -89,7 +89,7 @@ export default {
         if (valid) {
           this.$http({
             method: "post",
-            url: "http://106.55.156.192:5797/api/backstage/user/save",
+            url: `http://${window.location.hostname}:88/api/backstage/user/save`,
             headers: { "Content-Type": "application/json" },
             data: {
               name: this.ruleForm.name,

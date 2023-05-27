@@ -15,7 +15,7 @@ vm.$router.beforeEach((to, from, next) => {
     const token = vm.$cookies.get("token")
     if (token) {
       vm.$http
-        .get(`http://106.55.156.192:5797/api/backstage/user/token?token=${token}`)
+        .get(`http://${window.location.hostname}:88/api/backstage/user/token?token=${token}`)
         .then((res) => {
           if (res.data.user) {
             next()

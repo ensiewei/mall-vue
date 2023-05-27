@@ -37,7 +37,7 @@
         <el-button size="small" type="primary">点击上传</el-button>
         <template #tip>
           <div class="el-upload__tip">
-            只能上传 jpg/png 文件
+            上传 图片 文件
           </div>
         </template>
       </el-upload>
@@ -68,7 +68,7 @@ export default {
 
         this.axios
           .get(
-            "http://106.55.156.192:5797/api/commodity/sku/category/" +
+            `http://${window.location.hostname}:88/api/commodity/sku/category/` +
               obj.categoryEntity.id
           )
           .then((response) => {
@@ -83,7 +83,7 @@ export default {
     fetchImgByskuId(value) {
       if (Number.isInteger(value)) {
         this.axios
-          .get("http://106.55.156.192:5797/api/commodity/sku-img/sku/" + value)
+          .get(`http://${window.location.hostname}:88/api/commodity/sku-img/sku/${value}`)
           .then((response) => {
             this.skuImgs = response.data.skuImgs;
           })
@@ -96,7 +96,7 @@ export default {
     suc() {
       this.$http({
         method: "post",
-        url: "http://106.55.156.192:5797/api/commodity/sku-img/save",
+        url: `http://${window.location.hostname}:88/api/commodity/sku-img/save`,
         headers: { "Content-Type": "application/json" },
         data: {
           skuId: this.value,
@@ -118,7 +118,7 @@ export default {
     },
     async beforeUpload(file) {
       await this.axios
-        .get("http://106.55.156.192:5797/api/third-party/signature")
+        .get(`http://${window.location.hostname}:88/api/third-party/signature`)
         .then((response) => {
           this.data = response.data.data;
           this.data.key =

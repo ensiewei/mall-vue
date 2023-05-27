@@ -9,9 +9,11 @@
         :model="ruleForm"
         :rules="rules"
         ref="ruleForm"
-        label-width="100px"
         class="demo-ruleForm"
       >
+        <el-form-item label="已选择品类">
+          <el-input v-model="categoryName" disabled></el-input>
+        </el-form-item>
         <el-form-item label="spu" prop="spu">
           <el-select v-model="ruleForm.spu" placeholder="请选择spu" clearable>
             <el-option
@@ -24,13 +26,17 @@
         </el-form-item>
         <el-form-item label="标题" prop="title" v-if="ruleForm.spu !== undefined && ruleForm.spu !== ''">
           <el-input v-model="ruleForm.title"></el-input>
+          <el-button type="primary" @click="defaultTitle()">默认标题</el-button>
         </el-form-item>
-        <el-form-item label="价格" prop="price" v-if="ruleForm.spu !== undefined && ruleForm.spu !== ''">
+        <el-form-item label="价格" required prop="price" v-if="ruleForm.spu !== undefined && ruleForm.spu !== ''">
           <el-input v-model="ruleForm.price"></el-input>
         </el-form-item>
+        <el-form-item label="数量" required prop="count" v-if="ruleForm.spu !== undefined && ruleForm.spu !== ''">
+          <el-input v-model="ruleForm.count"></el-input>
+        </el-form-item>
         <el-form-item
-          :label="group.name"
-          prop="name"
+          :label="group.kind === 1 ? group.name + ' - [销售属性]' : group.name"
+          :prop="group.name"
           v-for="(group, index) of groups"
           :key="index"
         >
@@ -51,6 +57,7 @@ import Category from "../components/Category.vue";
 export default {
   data() {
     return {
+      categoryName: undefined,
       spus: [],
       groups: [],
       ruleForm: {
@@ -58,10 +65,12 @@ export default {
         categoryId: undefined,
         price: undefined,
         title: undefined,
+        count: undefined,
         groups: [],
       },
       rules: {
         spu: [{ required: true, message: "请选择spu", trigger: "blur" }],
+        title: [{ required: true, message: "请填写标题", trigger: "blur" }],
       },
     };
   },
@@ -73,10 +82,11 @@ export default {
       if (obj.categoryEntity.level === 3) {
         this.ruleForm.categoryId = obj.categoryEntity.id;
         this.ruleForm.spu = undefined
+        this.categoryName = obj.categoryEntity.name
 
         this.axios
           .get(
-            "http://106.55.156.192:5797/api/commodity/group/category/" +
+            `http://${window.location.hostname}:88/api/commodity/group/category/` +
               obj.categoryEntity.id
           )
           .then((response) => {
@@ -87,7 +97,7 @@ export default {
 
         this.axios
           .get(
-            "http://106.55.156.192:5797/api/commodity/spu/category/" +
+            `http://${window.location.hostname}:88/api/commodity/spu/category/` +
               obj.categoryEntity.id
           )
           .then((response) => {
@@ -101,13 +111,14 @@ export default {
         if (valid) {
           this.$http({
             method: "post",
-            url: "http://106.55.156.192:5797/api/commodity/sku/add",
+            url: `http://${window.location.hostname}:88/api/commodity/sku/add`,
             headers: { "Content-Type": "application/json" },
             data: {
               spuId: this.ruleForm.spu,
               categoryId: this.ruleForm.categoryId,
-              price: this.ruleForm.price,
+              price: this.ruleForm.price * 100,
               title: this.ruleForm.title,
+              count: this.ruleForm.count,
               groupDTOs: this.ruleForm.groups,
             },
           })
@@ -124,13 +135,21 @@ export default {
               alert("保存失败");
               return false;
             });
-          console.log("submit!");
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
     },
+    defaultTitle () {
+      let title = this.categoryName + ' '
+      for (const spu of this.spus) {
+        if (spu.id === this.ruleForm.spu) title += spu.name
+      }
+      for (const group of this.ruleForm.groups) {
+        if (group.value && group.value.length < 10) title += ' ' + group.value
+      }
+      this.ruleForm.title = title
+    }
   },
 };
 </script>

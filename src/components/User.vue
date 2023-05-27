@@ -22,7 +22,7 @@ export default {
   },
   beforeCreate() {
     this.axios
-      .get("http://106.55.156.192:5797/api/backstage/user/list")
+      .get(`http://${window.location.hostname}:88/api/backstage/user/list`)
       .then((response) => {
         this.tableData = response.data.page.list;
       })

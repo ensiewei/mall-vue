@@ -60,7 +60,7 @@ export default {
         if (valid) {
           this.$http({
             method: 'post',
-            url: 'http://106.55.156.192:5797/api/backstage/user/login',
+            url: `http://${window.location.hostname}:88/api/backstage/user/login`,
             headers: {'Content-Type': 'application/json'},
             data: {
               "account": this.ruleForm.account,
@@ -68,8 +68,9 @@ export default {
             }
           })
             .then((res) => {
+              console.log(res)
               if (res.data.token) {
-                this.$cookies.set("token", res.data.token, '10min')
+                this.$cookies.set("token", res.data.token, '10d')
                 this.$router.push({ name: "Home" });
               } else {
                 alert('账号或密码出错')
